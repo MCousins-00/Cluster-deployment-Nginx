@@ -1,0 +1,25 @@
+#! /bin/bash
+#########Run on the masternode#############
+
+sudo kubeadm init --pod-network-cidr=10.2.0.0/16
+
+
+##########To start using your cluster, you need to run the following as a regular user###############
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+
+############Alternatively, if you are the root user, you can run:########################
+
+export KUBECONFIG=/etc/kubernetes/admin.conf
+
+kubectl get nodes
+
+
+###########Setting up cluster#############
+
+
+kubectl apply -f https://docs.projectcalico.org/manifests/tigera-operator.yaml
